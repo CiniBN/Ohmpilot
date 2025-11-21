@@ -1,4 +1,4 @@
-# Ohmpilot
+# DIY Ohmpilot
 DIY Ohmpilot
 
 Előzmények:
