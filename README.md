@@ -1,2 +1,6 @@
 # Ohmpilot
 DIY Ohmpilot
+
+Előzmények:
+Rendelkezem hálózatra visszatápláló napelemes rendszerrel, amelynek teljesítménye 4 kWp és egy Fronius Symo 4.5-3-M inverter képezi az alapját.
+Én még Magyarországon beleestem abba a körbe, akik 10 évig éves szaldó elszámolással kötöttek csatlakozási szerződést a villamosenergia szolgáltatóval. A legutóbbi elszámoláskor (május 12-e) kb. 800 kWh visszatáplálással zárult az egyenleg és mint tudjuk kishazánkban 5 Ft/kWh áron vásárolta vissza a szolgáltató ezt a megtermelt energiát. (A szomszédnak, meg el tudja adni extrém esetben 70 Ft/kWh áron...) Úgy döntöttem, hogy a visszatáplálásom minimálisra fogom szorítani, ez elsősorban életmódváltással és másodsorban egy olyan fogyasztó hálózatba kapcsolását jelenti, amely az aktuális visszatáplált villamos energiát fel tudja használni. Erre egy hőszivattyú tökéletes választás lehet, de sajnos a tesztelések alkalmával a visszatáplált energia változása nem lekövethető egy hőszivattyúval. Nem mondom, hogy nem lehetetlen, de én jobbnak láttam egy fűtőszál szabályozás megvalósítást. A családunk energiafelhasználását figyelemmel kísérve számomra egyébént megdöbbentő módon a HMV készítés energiaigénye vetekedett a fűtésre fordított energia mennyiségével. 
