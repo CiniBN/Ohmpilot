@@ -8,14 +8,43 @@ Rendelkezem hálózatra visszatápláló napelemes rendszerrel, amelynek teljes�
 Eszközök:
 - HomeWisard P1 Meter (Villamos fogyasztásmérő olvasására; export / import energia)
 - Fronius Symo inverter, Datameneger kártyával (napelemekkel)
-- Inepro PRO380-Mod 100A MID (fűtőszál fogyasztásmérésére) 
+- Inepro PRO380-Mod 100A MID (fűtőszál fogyasztásmérésére)
+- 1 db 3P 20A főkapcssoló
+- 1 db 3P 10A B kismegszakító (Pl.: Eaton PL7-B10/3)
 - 4P 25A 30mA áramvédő kapcsoló (Pl.: Eaton PF7-25/4/003-A, hibaáram védelemre)
 - 3 db HOYMK SSR-25 DA szilárdtest relé (fontos, hogy nullaátmenet triggerrel rendelkezzen!)
-- 1 db 4 csatornás optocsatoló izolációs kártya (Pl.: HL-OI-VT-4-P bemenet: 3,3V; kimenet: 24V)
+- 1 db 4 csatornás optocsatoló izolációs kártya (Pl.: HL-OI-VT-4-N bemenet: 3,3V; kimenet: 24V)
 - 1 db 230VAC / 24VDC tápegység
 - KinCony KC868-A2v3 ESP32-S3 vezérlőkártya (ezt különálló elemekből is össze lehet rakni)
 - 3 db AC-1-es üzemmódban 20A kapcsolni képes mágneskapcsoló (Pl.: Eaton DILMP20)
 - 3kW-os 3x230V-os csillagba kapcsol fűtőpatron
+- Home Assistant
+
+Nézzük egyenként, mi mire kell:
+1. HomeWizard P1 Meter: ez az eszköz szolgáltatja a PID szabályozó visszacsatoló jelét, ez tulajdonképpen bármilyen fogyasztásmérő lehet, nem muszály a szolgáltató mérőjét használni, az általa szolgáltatott pillanatnyi teljesítmény adatot le lehet cserélni az aktuális mérő adatára. Itt ezt a Home Assistanton keresztül kapjuk meg.
+2. Inepro PRO380-Mod 100A MID: ez is egy fogyasztásmérő, ez fogja mérni a fűtőpatron által fogyasztott villamos energiát. Ez nem vesz részt a szabályozásban, ez csak tájékoztató adatot küld számunkra.
+3. 3P-ú 20A-es főkapcsoló: Ezzel az eszközzel tudjuk feszültség mentesíteni a berendezésünket.
+4. 3P-ú B védelmi karakterisztikájú 10A-es kismegszakító: Ez a készülék felel az érintésvédelemért, túláram- és zárlatvédelemért.
+5. 30mA-es áramvédő-kapcsoló: ez a jelenleg érvényben lévő magyar szabványokban lévő kiegészítő védelem. Ez nem alakalmas önmagában a villamos védelemre, ez csak a túláram- és zárlatvédelmi készülék melleti kiegészítő hibaáram védelem.
+6. HOYMK SSR-25 DA szilárdtest relé: Ez az eszköz fogja végezni a fűtőszál teljesítmény vezérlését. Nagyon fontos, hogy az eszköz nullaátmenet triggerrel rendelkezzen. A triak és a fázishasítás módszer sajnos az inverter H-hídját károsíthatja, így egyáltalán nem ajánlott, sőt kerülendő!
+7. 4 csatornás optocsatoló izolációs kártya: Ez az ESP kimeneteit illeszti az SSR-ek részére, elméletileg az ESP-t közvetlenül is rá lehet kötni az SSR-re, de jobbnak láttam egy optikai leválasztást és egy szintillesztést közbeiktatni.
+8. Tápegység: az elektronikák és SSR meghajtására ez bármilyen a célnak megfeleő tápegység lehet.
+9. KC868-A2v3 vezérlőkártya: ezt különálló elemekből is össze lehet építeni, én kifejezetten olyan eszközt kerestem, ami sz alábbi funkciókkal rendelkezik:
+    - ESP32-es kontroller
+    - 2db relékimenet
+    - 2db leválasztott bemenet
+    - vezetékes ethernet port (WiFi a lemezszekrény miatt nem opció)
+    - RS-485 kommunikációs felület
+    - szabadon használható PWM csapok min. 3 db
+10. Mágneskapcsolók: olyan mágneskapcsolót válasszunk, amely AC-1 üzemmódban tudja kapcsolni a fűtőpatronokat. Tehát, ha azt látod, hogy AC-3 25A, az nem biztos, hogy megfelelő lesz!
+Az első mágneskapcsoló a fő mágneskapcsoló, ezt vezéreljük, ill. kapcsoljuk le ha rendellenes üzemállapot van. Ez biztonsági kérdés. Szükség van olyan pl. kapilláriscsöves termosztátra, amyelyet a tartály hőmárőhövelyébe helyezünk és a beállított hőmérséklet elérésekor a mágneskapcsoló által a fűtőartonokat lekapcsolja a hálózatról.
+A másik két mágneskapcsoló a HMV és puffertartályban lévő patronokat kapcsolja az SSR-k után. Ezek felelnek a patronok kiválasztásáért.
+11. Home Assistant: Ez lesz a megjelenítő felületünk, itt mindenki saját maga létrehozhatja az ESP által szolgáltatott adatokat.
+    Második funkciója, hogy egy pár érzékelő értékét is szolgáltatja az ESP számára:
+    - P1 mérő adatai
+    - HMV tartály hőmérséklete
+    - Puffer tartály hőmérséklete
+    Ha a tartály hőmérséklet adatai nem álnak rendelkezésre, akkor azokat pl. DS18B20 hőmérővel lehet helyetesíteni, természetesen ebben az esetben az ESP programját módosítani kell.
 
 Figyelmeztetés!
 Jelen projekt 3x230/400V 50Hz TN-S hálózatra készült!
