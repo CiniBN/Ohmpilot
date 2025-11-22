@@ -14,7 +14,7 @@ Eszközök:
 - 1 db 4 csatornás optocsatoló izolációs kártya (Pl.: HL-OI-VT-4-P bemenet: 3,3V; kimenet: 24V)
 - 1 db 230VAC / 24VDC tápegység
 - KinCony KC868-A2v3 ESP32-S3 vezérlőkártya (ezt különálló elemekből is össze lehet rakni)
-- 3 db AC-1-es őzemmódban 25A kapcsolni képes mágneskapcsoló (Pl.: Eaton DILMP20)
+- 3 db AC-1-es üzemmódban 25A kapcsolni képes mágneskapcsoló (Pl.: Eaton DILMP20)
 
 Figyelmeztetés!
 Jelen projekt 3x230/400V 50Hz TN-S hálózatra készült!
